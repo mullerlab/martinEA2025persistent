@@ -1,16 +1,16 @@
-fid = fopen('./times_inh.txt','r');
+fid = fopen('../data/ring_model/times_inh.txt','r');
 times_inh = fscanf(fid, '%f');
 fclose(fid);
 
-fid = fopen('./ids_inh.txt','r');
+fid = fopen('../data/ring_model/ids_inh.txt','r');
 ids_inh = fscanf(fid, '%f');
 fclose(fid);
 
 
-fid = fopen('./times.txt','r');
+fid = fopen('../data/ring_model/times.txt','r');
 times = fscanf(fid, '%f');
 fclose(fid);
-fid = fopen('./ids.txt','r');
+fid = fopen('../data/ring_model/ids.txt','r');
 ids= fscanf(fid, '%f');
 fclose(fid);
 t_model = linspace(0,3,60000);
@@ -24,10 +24,10 @@ end
 %% inhibitory rates histogram
 inh_rates=zeros(1,100);
 for i=1:100
-clust=[(i-1)*3+1,i*3+1];
-inh_rates(i) = (length(times_inh(ids_inh>clust(1) & ids_inh<clust(2) & times_inh)))/20;
+bin_edges=[(i-1)*3+1,i*3+1];
+inh_rates(i) = (length(times_inh(ids_inh>bin_edges(1) & ids_inh<bin_edges(2) & times_inh)))/20;
 end
-inh_rates=inh_rates(1:85);
+
 
 %% import conductance data
 gaba = readmatrix('./gaba.txt');
@@ -38,18 +38,18 @@ ampa = ampa(:,2);
 nmda = nmda(:,2);
 
 %%
-fid = fopen('./voltage_sample.txt','r');
+fid = fopen('../data/ring_model/voltage_sample.txt','r');
 voltage_model_neuron = fscanf(fid, '%f');
 fclose(fid);
 
-spike_times_neuron_570 = times(ids == 571);
-for i = 1:length(spike_times_neuron_571 )
-voltage_model_neuron(floor(spike_times_neuron_571 (i)*20))=20;
+spike_times_neuron_model = times(ids == 571);
+for i = 1:length(spike_times_neuron_model )
+voltage_model_neuron(floor(spike_times_neuron_model (i)*20))=20;
 end
 
 
 %% import network clamp data
-[data,si,header]=abfload('./25606017.abf');
+[data,si,header]=abfload('../data/ring_model/25606017.abf');
 num_points = header.dataPtsPerChan;
 sampling_rate = header.fADCSampleInterval * 1e-6; % in microseconds
 t_net_clamp = linspace(0, (num_points - 1) * sampling_rate*2, num_points);
@@ -88,6 +88,7 @@ area(smooth(inh_rates,20), 'EdgeColor', 'none');set(gca,'YAxisLocation','right',
 box off
 set(gca,'TickDir','out','Fontsize',20,'LineWidth', 3,'FontWeight', 'bold',['xtick'],[],'yTick',[1 5 10 15 20],'yticklabel',{'1', '', '', '', '20'},'yTickLabelRotation', 0,'TickLength',[0.005 0.005])
 ylim([0 22])
+xlim([0 86])
 
 
 % traces
