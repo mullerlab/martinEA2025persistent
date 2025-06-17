@@ -1,7 +1,7 @@
-% Import spiking data
-load("n_20255.mat")
+% Import proxy neuron data
+load("../data/Clustered_Netsim/n_20255.mat")
 % import network clamp data
-path = "./24728063.abf"
+path = "../data/Network_clamp_data/24728063.abf"
 [data,si,header]=abfload(path);
 num_points = header.dataPtsPerChan;
 sampling_rate = header.fADCSampleInterval * 1e-6; % in microseconds
