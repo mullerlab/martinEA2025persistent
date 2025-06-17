@@ -30,9 +30,9 @@ end
 
 
 %% import conductance data
-gaba = readmatrix('./gaba.txt');
-ampa = readmatrix('./ampa.txt');
-nmda = readmatrix('./nmda.txt');
+gaba = readmatrix('../data/ring_model/gaba.txt');
+ampa = readmatrix('../data/ring_model/ampa.txt');
+nmda = readmatrix('../data/ring_model/nmda.txt');
 gaba = gaba(:,2);
 ampa = ampa(:,2);
 nmda = nmda(:,2);
@@ -49,7 +49,7 @@ end
 
 
 %% import network clamp data
-[data,si,header]=abfload('../data/ring_model/25606017.abf');
+[data,si,header]=abfload('../data/Network_clamp_data/25606017.abf');
 num_points = header.dataPtsPerChan;
 sampling_rate = header.fADCSampleInterval * 1e-6; % in microseconds
 t_net_clamp = linspace(0, (num_points - 1) * sampling_rate*2, num_points);
