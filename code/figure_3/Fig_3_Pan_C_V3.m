@@ -5,8 +5,8 @@ binSize = 500;           % size of bins for spike counting (ms)
 
 % Load data
 if ~exist("data","var") || ~exist("odr","var")
-    load("NHPB_ODR4.mat")
-    load("persistent_odr_struct.mat")
+    load("../data/ODR_task/NHPB_ODR4.mat")
+    load("../data/ODR_task/persistent_odr_struct.mat")
 end
 
 % Data collection
@@ -56,8 +56,12 @@ end
 %% MODEL STATISTICS
 
 % Import spiking data
-load("sim2_spike_times_ids.mat")
-
+fid = fopen('../data/Clustered Netsim model/00000004spk_times.bin','rb');
+times = fread(fid, 'double') ;
+fclose(fid);
+fid = fopen('../data/Clustered Netsim model/00000004spk_ids.bin','rb');
+ids = fread(fid, 'uint32') + 1;
+fclose(fid);
 % Raster firing distribution
 test = ids(times > 2);
 test = test(test > 20000 & test < 21000);
