@@ -1,13 +1,13 @@
 %% Netsim
 n = 20255;
 t = linspace(0,3,15000);
-fid = fopen('./00000004ge.bin','rb');
+fid = fopen('../data/Clustered Netsim model/00000004ge.bin','rb');
 ge = fread(fid, 'single');
 ge = reshape(ge*10e8,50000,[]);
 ge_n = ge(n,:);
 fclose(fid);
 
-fid = fopen('./00000004gn.bin','rb');
+fid = fopen('../data/Clustered Netsim model/00000004gn.bin','rb');
 gn = fread(fid, 'single');
 gn = reshape(gn*10e8,50000,[]);
 gn_n = gn(n,:);
