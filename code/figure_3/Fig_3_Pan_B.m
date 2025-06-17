@@ -1,6 +1,10 @@
-% Import data
-load("sim2_spike_times_ids.mat")
-
+% Import spiking data
+fid = fopen('../data/Clustered Netsim model/00000004spk_times.bin','rb');
+times = fread(fid, 'double') ;
+fclose(fid);
+fid = fopen('../data/Clustered Netsim model/00000004spk_ids.bin','rb');
+ids = fread(fid, 'uint32') + 1;
+fclose(fid);
 %% evolution of rate
 %inbump
 times_bump = times(ids>=20000 & ids <=21000 );
