@@ -1,9 +1,9 @@
-f=load("naive_vs_dopamine.mat");
+load("naive_vs_dopamine.mat");
 rate=[];
 stim=[];
 warning('off','signal:findpeaks:largeMinPeakHeight');
 for i = 1:length(f)
-[data,si,header]=abfload(f{i,1});
+[data,si,header]=abfload(f{i,2});
 num_points = header.sweepLengthInPts;
 sampling_rate = header.fADCSampleInterval * 1e-6; % in microseconds
 t = linspace(0, (num_points - 1) * sampling_rate, num_points);
